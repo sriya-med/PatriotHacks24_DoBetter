@@ -5,8 +5,12 @@ import './App.css'
 import FileUpload from './components/FileUpload'
 import AnalyzeImage from './components/AnalyzeImage'
 
+
+
+
 function App() {
   const [uploadedImageName, setUploadedImageName] = useState('');
+  
 
   return (
     <div>

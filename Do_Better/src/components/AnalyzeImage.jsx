@@ -1,9 +1,27 @@
-// src/components/AnalyzeImage.jsx
 import React, { useEffect, useState } from 'react';
 import { RekognitionClient, DetectLabelsCommand } from '@aws-sdk/client-rekognition';
 
+function handleEcoFriendlyLabels(labels, setPopUpText) {
+  let foundPlastic = false;
+  let foundRecyclingSymbol = false;
+
+  labels.forEach((label) => {
+    if (label.Name === "Plastic" && label.Confidence >= 90) {
+      foundPlastic = true;
+    }
+    if (label.Name === "Recycling Symbol" && label.Confidence >= 90) {
+      foundRecyclingSymbol = true;
+    }
+  });
+
+  if (foundPlastic && foundRecyclingSymbol) {
+    setPopUpText("Thanks for being eco-friendly. Points added!");
+  }
+}
+
 const AnalyzeImage = ({ imageName }) => {
   const [labels, setLabels] = useState([]);
+  const [popUpText, setPopUpText] = useState('');  // State for pop-up text
 
   useEffect(() => {
     const analyzeImage = async () => {
@@ -30,6 +48,8 @@ const AnalyzeImage = ({ imageName }) => {
         const command = new DetectLabelsCommand(params);
         const response = await rekognitionClient.send(command);
         setLabels(response.Labels);
+
+        handleEcoFriendlyLabels(response.Labels, setPopUpText);
       } catch (err) {
         console.error('Error analyzing image:', err);
       }
@@ -48,6 +68,13 @@ const AnalyzeImage = ({ imageName }) => {
           <li key={label.Name}>{label.Name} - {label.Confidence.toFixed(2)}%</li>
         ))}
       </ul>
+
+      {/* Pop-up notification */}
+      {popUpText && (
+        <div className="popup">
+          {popUpText}
+        </div>
+      )}
     </div>
   );
 };
