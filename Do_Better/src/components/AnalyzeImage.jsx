@@ -6,22 +6,34 @@ function handleEcoFriendlyLabels(labels, setPopUpText) {
   let foundRecyclingSymbol = false;
 
   labels.forEach((label) => {
+    console.log('Label:', label.Name, label.Confidence);  // Debugging the labels received
+
     if (label.Name === "Plastic" && label.Confidence >= 90) {
+      console.log("Found Plastic with confidence:", label.Confidence);
       foundPlastic = true;
     }
     if (label.Name === "Recycling Symbol" && label.Confidence >= 90) {
+      console.log("Found Recycling Symbol with confidence:", label.Confidence);
       foundRecyclingSymbol = true;
     }
   });
 
   if (foundPlastic && foundRecyclingSymbol) {
+    alert("Thanks for being eco-friendly. Points added!");
     setPopUpText("Thanks for being eco-friendly. Points added!");
+  } else {
+    setPopUpText("Keep going! Try recycling or reducing plastic use.");
   }
+
+  // Clear the pop-up after 3 seconds
+  setTimeout(() => {
+    setPopUpText('');
+  }, 3000);
 }
 
 const AnalyzeImage = ({ imageName }) => {
   const [labels, setLabels] = useState([]);
-  const [popUpText, setPopUpText] = useState('');  // State for pop-up text
+  const [popUpText, setPopUpText] = useState('');
 
   useEffect(() => {
     const analyzeImage = async () => {
@@ -47,6 +59,8 @@ const AnalyzeImage = ({ imageName }) => {
       try {
         const command = new DetectLabelsCommand(params);
         const response = await rekognitionClient.send(command);
+
+        console.log("Rekognition Response:", response);  // Add this log to see the entire response
         setLabels(response.Labels);
 
         handleEcoFriendlyLabels(response.Labels, setPopUpText);
@@ -61,7 +75,7 @@ const AnalyzeImage = ({ imageName }) => {
   }, [imageName]);
 
   return (
-    <div>
+    <div className='labels-box'>
       <h2>Detected Labels:</h2>
       <ul>
         {labels.map((label) => (
@@ -69,7 +83,6 @@ const AnalyzeImage = ({ imageName }) => {
         ))}
       </ul>
 
-      {/* Pop-up notification */}
       {popUpText && (
         <div className="popup">
           {popUpText}

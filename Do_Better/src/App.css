@@ -83,12 +83,19 @@ tbody tr:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 85%;
   padding: 20px;
   border: 2px dashed #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
   margin-top: 20px;
+}
+
+.labels-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 button {
@@ -137,4 +144,25 @@ footer p {
   #header {
     font-size: 30px;
   }
+}
+.popup {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5ebc6f;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  z-index: 1000;
+  animation: fade-in-out 3s ease-in-out;
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-50px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-50px); }
 }

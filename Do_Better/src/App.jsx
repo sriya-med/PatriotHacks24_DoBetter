@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FileUpload from './components/FileUpload';  
+import AnalyzeImage from './components/AnalyzeImage';  
 import './App.css'; 
 
 const App = () => {
+  const [uploadedFileName, setUploadedFileName] = useState('');  // State to hold uploaded file name
+
+  // This function will be called when file upload is complete
+  const handleUploadComplete = (fileName) => {
+    setUploadedFileName(fileName);
+  };
+
   return (
     <div className="App">
       <header id="header">
@@ -37,8 +45,15 @@ const App = () => {
           </table>
 
           <div className="upload-box">
-            <FileUpload onUploadComplete={(fileName) => console.log(fileName + ' uploaded')} />
+            <FileUpload onUploadComplete={handleUploadComplete} /> {/* Pass the callback function */}
           </div>
+
+          {/* Conditionally render AnalyzeImage if a file is uploaded */}
+          {uploadedFileName && (
+            <div className="analyze-section">
+              <AnalyzeImage imageName={uploadedFileName} />
+            </div>
+          )}
         </div>
 
         <div className="leader-board">
