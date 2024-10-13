@@ -1,4 +1,3 @@
-// src/components/FileUpload.jsx
 import React, { useState } from 'react';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import s3Client from '../utils/awsConfig';
@@ -30,7 +29,11 @@ const FileUpload = ({ onUploadComplete }) => {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input 
+        type="file" 
+        accept="image/*"  // Only accept image formats like .jpg, .png, etc.
+        onChange={handleFileChange} 
+      />
       <button onClick={handleUpload}>Upload</button>
     </div>
   );
