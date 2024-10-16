@@ -22,7 +22,7 @@ Setup Instructions
 
 Installation
 - Clone the repository
-- git clone https://github.com/your-username/do-better.git
+- git clone https://github.com/sriya-med/PatriotHacks24_DoBetter.git
 - cd do-better
 Install dependencies:
 - npm install
