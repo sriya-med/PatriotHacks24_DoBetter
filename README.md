@@ -20,19 +20,22 @@ Setup Instructions
 - AWS Account with S3 bucket and Rekognition permissions
 - AWS Access Key ID and Secret Access Key
 
-Installation
+2. Installation
 - Clone the repository
 - git clone https://github.com/sriya-med/PatriotHacks24_DoBetter.git
 - cd do-better
-Install dependencies:
+
+3. Install dependencies:
 - npm install
-Set Up Environmental Variables:
+
+4. Set Up Environmental Variables:
 - touch .env
 VITE_AWS_ACCESS_KEY_ID=your-access-key-id
 VITE_AWS_SECRET_ACCESS_KEY=your-secret-access-key
 VITE_AWS_REGION=your_region
 VITE_AWS_BUCKET_NAME=your-bucket-name
-Run the App:
+
+5. Run the App:
 - npm run dev
 
 Future Implementation: 
